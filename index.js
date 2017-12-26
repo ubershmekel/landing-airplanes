@@ -9,8 +9,12 @@ function geoFindMe() {
     function geo_success(position) {
         var latitude    = position.coords.latitude;
         var longitude = position.coords.longitude;
+        var timestamp = new Date().toISOString();
 
-        output.innerHTML = '<p>Latitude is ' + latitude + ' <br>Longitude is ' + longitude + '</p>';
+        output.innerHTML = '<p>Latitude is ' + latitude
+            + ' <br/>Longitude is ' + longitude
+            + ' <br/>Time is ' + timestamp
+            +'</p>';
 
         /*var img = new Image();
         img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";

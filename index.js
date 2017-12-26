@@ -1,20 +1,22 @@
 function geoFindMe() {
     var output = document.getElementById("out");
 
-    if (!navigator.geolocation){
-        output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-        return;
+    function outputText(text) {
+        var prevHtml = output.innerHTML;
+        output.innerHTML = '<p>' + text + '</p>' + prevHtml;
     }
 
     function geo_success(position) {
-        var latitude    = position.coords.latitude;
+        var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
+        var altitude = position.coords.longitude;
         var timestamp = new Date().toISOString();
 
-        output.innerHTML = '<p>Latitude is ' + latitude
+        outputText('Latitude is ' + latitude
             + ' <br/>Longitude is ' + longitude
+            + ' <br/>Altitude is ' + altitude
             + ' <br/>Time is ' + timestamp
-            +'</p>';
+        );
 
         /*var img = new Image();
         img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
@@ -23,18 +25,29 @@ function geoFindMe() {
 
     function geo_error(err) {
         output.innerHTML = "Unable to retrieve your location";
-        showAlert('geoError ' + err.code + ' - ' + err.message);
+        showAlert('Geo error - ' + err.code + ' - ' + err.message);
     }
 
-    output.innerHTML = "<p>Locating...123</p>";
-    
-    var geo_options = {
-        enableHighAccuracy: false,
-        timeout: 5000,
-        maximumAge: 0
-    };
+    function geoToXyz() {
+        // https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates        
+    }
 
+    function main() {
+        if (!navigator.geolocation){
+            outputText("Geolocation is not supported by your browser");
+            return;
+        }
 
-    navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+        outputText("Locating...123");
+        var geo_options = {
+            enableHighAccuracy: false,
+            timeout: 1000,
+            maximumAge: 1000,
+        };
+
+        navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+    }
+
+    main();
 }
 

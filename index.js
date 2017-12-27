@@ -1,3 +1,23 @@
+/*
+
+Given:
+* Landing point (lat, long, altitude?)
+* Direction vector of desired landing flight path (landing strip azimuth, landing incline angle)
+* Current location of the plane (lat, long, altitude)
+
+Calculate:
+* The distance and direction from the desired landing flight path
+
+Display:
+* Indicator for how to correct towards the desired flight path.
+
+====
+
+
+
+*/
+
+
 function geoFindMe() {
     var output = document.getElementById("out");
 
@@ -28,10 +48,6 @@ function geoFindMe() {
         showAlert('Geo error - ' + err.code + ' - ' + err.message);
     }
 
-    function geoToXyz() {
-        // https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates        
-    }
-
     function main() {
         if (!navigator.geolocation){
             outputText("Geolocation is not supported by your browser");
@@ -51,3 +67,5 @@ function geoFindMe() {
     main();
 }
 
+exports.geoFindMe = geoFindMe;
+//exports.geoToXyz = geoToXyz;

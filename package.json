@@ -1,0 +1,23 @@
+{
+  "name": "landing-airplanes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "parcel": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubershmekel/landing-airplanes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ubershmekel/landing-airplanes/issues"
+  },
+  "homepage": "https://github.com/ubershmekel/landing-airplanes#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.3.1"
+  }
+}

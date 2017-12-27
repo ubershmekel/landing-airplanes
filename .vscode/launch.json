@@ -8,7 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch File",
-            "program": "${file}"
+            "program": "${file}",
+            // The default `"console": "internalConsole"` causes out of order stdout
+            "console": "integratedTerminal",
         },
         {
             "type": "node",

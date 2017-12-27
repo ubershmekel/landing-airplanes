@@ -33,8 +33,7 @@ exports.parseLatLonAltitude = function(text) {
     }
 }
 
-exports.getDescentVec = function(landingLla, azimuthAngleDeg, descentAngleDeg) {
-    const landingPoint = exports.geoToXyz(landingLla);
+exports.getDescentVec = function(landingPoint, azimuthAngleDeg, descentAngleDeg) {
     const northPole = vec(0, 0, earthRadiusMeters);
     const westAtLanding = vecNormalize(vecCross(landingPoint, northPole));
     const upAtLanding = vecNormalize(landingPoint);
@@ -49,6 +48,9 @@ exports.getDescentVec = function(landingLla, azimuthAngleDeg, descentAngleDeg) {
     const azimuthDirectionVec = vecNormalize(vecAdd(northProjection, eastProjection));
 
     // Combining the azimuth direction with the up direction and incline
+    // This might be a bug - if the earth is round - the "upAtLanding" is the wrong vector to use
+    // but rather a round curve alongside earth with linearly rising altitude should be used.
+    // Or more simply - using the LLA coordinates for this math instead.
     const inclineFactor = Math.tan(descentAngleDeg * Math.PI / 180);
     const climbForOne = vecScale(upAtLanding, inclineFactor);
     return vecNormalize(vecAdd(climbForOne, azimuthDirectionVec));
@@ -108,28 +110,31 @@ function xyzToAltitude(vector) {
     return vecSize(vector) - earthRadiusMeters;
 }
 
-exports.correctLanding = function(landingLla, descentDirection, jetLla) {
-    const jetPoint = exports.geoToXyz(jetLla);
-    const landingPoint = exports.geoToXyz(landingLla);
+exports.parseLlaToXyz = function(text) {
+    return exports.geoToXyz(exports.parseLatLonAltitude(text));
+}
+
+exports.correctLanding = function(landingPoint, descentDirection, jetPoint) {
     const jetToTarget = vecSub(landingPoint, jetPoint);
     const targetToJet = vecSub(jetPoint, landingPoint);
+    const targetToJetDirection = vecNormalize(targetToJet);
     
-    const sizeDescentVector = vecDot(descentDirection, jetToTarget);
+    const sizeDescentVector = vecDot(descentDirection, targetToJet);
     const landingToClosestDescentPoint = vecScale(descentDirection, sizeDescentVector);
     const closestDescentPoint = vecAdd(landingToClosestDescentPoint, landingPoint);
     
     // Where is the descent point as viewed from a camera in the cockpit
-    // altitudeDiff is positive when the jet is too high.
-    const altitudeDiff = xyzToAltitude(jetPoint) - xyzToAltitude(closestDescentPoint);
+    // goDown is positive when the jet is too high.
+    const goDown = xyzToAltitude(jetPoint) - xyzToAltitude(closestDescentPoint);
 
     // thinking here that "jetPoint" points to the sky above the jet,
     // then the cross between that and the target is the left (right hand rule).
     const leftOfJet = vecNormalize(vecCross(jetPoint, jetToTarget));
     const jetToClosestDescentPoint = vecSub(closestDescentPoint, jetPoint);
-    const leftingNeeded = vecDot(leftOfJet, jetToClosestDescentPoint);
+    const goLeft = vecDot(leftOfJet, jetToClosestDescentPoint);
     return {
-        altitudeDiff,
-        leftingNeeded,
+        goDown,
+        goLeft,
     }
 }
 

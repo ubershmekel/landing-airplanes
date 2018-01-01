@@ -4,6 +4,7 @@
     <title>GPS Landing Guidance</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" type="text/css" href="./index.css" />
     <style>
         /* This is my error handler to show myself and users when errors are happening */
         /* See: https://gist.github.com/ubershmekel/66abb3987b116b4824201f9cd72e1dd9 /*
@@ -107,9 +108,14 @@
 <body>
     <script src="index.js?q=12345"></script>
     
-    <p><button onclick="geoFindMe()">Show my location</button></p>
-    <button onclick="window.location.reload(true)">Reload</button>
-    <div id="out"></div>
+    <p><button id="start-button">Show my location and start</button></p>
+    <!--button onclick="window.location.reload(true)">Reload</button-->
 
+    <div id="visual">
+        <img id="runway-icon" src="img/runway.svg" />
+        <img id="cross-hair-icon" src="img/cross-hair.svg" />
+    </div>
+    <div id="status"></div>
+    <div id="log"></div>
 </body>
 </html>

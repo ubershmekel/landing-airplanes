@@ -1,0 +1,44 @@
+#visual {
+    border: 1px solid #000;
+    height: 80%;
+    width: 80%;
+    position: relative;
+}
+
+#runway-icon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+
+#cross-hair-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+/*#runway-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 60px;
+    width: 30px;
+    border-right: 9px solid #f00;
+    border-left: 9px solid #f00;
+    opacity: 0.7;
+}
+
+#jet-icon {
+    width: 16px;
+    height: 8px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-right: 4px solid #00f;
+    border-left: 4px solid #00f;
+    border-bottom: 4px solid #00f;
+    opacity: 0.7;
+}
+*/

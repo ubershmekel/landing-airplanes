@@ -6,7 +6,7 @@
   "scripts": {
     "test": "parcel test.html",
     "start": "parcel index.html",
-    "build": "parcel build index.html --out-dir .."
+    "build": "parcel build index.html --out-dir .. --public-url ./"
   },
   "repository": {
     "type": "git",

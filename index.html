@@ -108,7 +108,13 @@
 <body>
     <script src="index.js?q=12345"></script>
     
-    <p><button id="start-button">Show my location and start</button></p>
+    <div>
+        <button id="start-button">Show my location and start</button>
+        <form method="GET" action="">
+            <input name="q" id="parameters" type="text" size="80" />
+        </form>
+        <button id="test-button">Test</button>
+    </div>
     <!--button onclick="window.location.reload(true)">Reload</button-->
 
     <div id="visual">

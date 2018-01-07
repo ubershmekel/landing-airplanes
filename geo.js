@@ -115,6 +115,8 @@ exports.parseLlaToXyz = function(text) {
 }
 
 exports.correctLanding = function(landingPoint, descentDirection, jetPoint) {
+    // I probably should have done all the calculations in 
+    // LLA space instead...
     const jetToTarget = vecSub(landingPoint, jetPoint);
     const targetToJet = vecSub(jetPoint, landingPoint);
     const targetToJetDirection = vecNormalize(targetToJet);

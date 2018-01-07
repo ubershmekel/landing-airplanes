@@ -234,16 +234,26 @@ function main() {
     var paramsLine = paramsObj.q || '';
     paramsBox.value = paramsLine;
     
+    // query parameter should be
+    // lat,lon,altitude,azimuth,descent-angle
     if (paramsLine) {
         var parts = paramsLine.split(',');
         paramsData = {
-            lat: parts[0],
-            lon: parts[1],
-            altitude: parts[2],
-            azimuth: parts[3],
-            descentAngle: parts[4],
+            lat: +parts[0],
+            lon: +parts[1],
+            altitude: +parts[2],
+            azimuth: +parts[3],
+            descentAngle: +parts[4],
         }
     }
+    var paramNames = ["lat", "lon", "altitude", "azimuth", "descentAngle"];
+    for (var i = 0; i < paramNames.length; i++) {
+        var param = paramsData[paramNames[i]];
+        if (typeof param !== "number" || isNaN(param)) {
+            outputText("Invalid parameter: " + paramNames[i] + " = " + param);
+        }
+    }
+    //outputText("Main");
     //alert(geo);
 }
 
